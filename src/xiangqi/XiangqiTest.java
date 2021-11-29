@@ -97,6 +97,13 @@ public class XiangqiTest {
     }
 
     @Test
+    public void testRoi3(){
+        Position depart = new Position(4, 0);
+        Position arrivee = new Position(4, 0);
+        assertTrue(r2.estValide(depart, arrivee));
+    }
+
+    @Test
     public void testMandarin(){
         Position depart = new Position(4,1);
         Position arrivee = new Position(3, 0);

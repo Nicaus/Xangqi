@@ -12,7 +12,7 @@ public class Elephant extends Piece{
 
         if (arrivee.getColonne() >= 0 && arrivee.getColonne() <= 9 && arrivee.getLigne() >= 0 && arrivee.getLigne() <= 8) {
             if (Objects.equals(getCouleur(), "noir")) {
-                if (arrivee.getColonne() < 5) {
+                if (arrivee.getLigne() < 5) {
                     if (arrivee.getColonne() == depart.getColonne() + 2) {
                         if (arrivee.getLigne() == depart.getLigne() + 2 || arrivee.getLigne() == depart.getLigne() - 2) {
                             return true;
@@ -26,7 +26,7 @@ public class Elephant extends Piece{
             }
 
             if (Objects.equals(getCouleur(), "rouge")) {
-                if (arrivee.getColonne() > 4) {
+                if (arrivee.getLigne() > 4) {
                     if (arrivee.getColonne() == depart.getColonne() + 2) {
                         if (arrivee.getLigne() == depart.getLigne() + 2 || arrivee.getLigne() == depart.getLigne() - 2) {
                             return true;

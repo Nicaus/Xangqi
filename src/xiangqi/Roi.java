@@ -8,8 +8,11 @@ public class Roi extends Piece{
     @Override
     public boolean estValide(Position depart, Position arrivee) {
 
+        if (depart.getLigne() == arrivee.getLigne() && depart.getColonne() == arrivee.getColonne())
+            return true;
+
         if (getCouleur() == "noir") {
-            if (arrivee.getColonne() >= 0 && arrivee.getColonne() < 3 && arrivee.getLigne() > 2 && arrivee.getLigne() < 6) {
+            if (arrivee.getLigne() >= 0 && arrivee.getLigne() < 3 && arrivee.getColonne() > 2 && arrivee.getColonne() < 6) {
                 if (depart.getColonne() == arrivee.getColonne() + 1 && arrivee.getLigne() == depart.getLigne())
                     return true;
                 else if (depart.getColonne() == arrivee.getColonne() - 1 && arrivee.getLigne() == depart.getLigne())
@@ -22,7 +25,7 @@ public class Roi extends Piece{
         }
 
         else if (getCouleur() == "rouge"){
-            if (arrivee.getColonne() <= 9 && arrivee.getColonne() > 6 && arrivee.getLigne() > 2 && arrivee.getLigne() < 6) {
+            if (arrivee.getLigne() <= 9 && arrivee.getLigne() > 6 && arrivee.getColonne() > 2 && arrivee.getColonne() < 6) {
                 if (depart.getColonne() == arrivee.getColonne() + 1 && arrivee.getLigne() == depart.getLigne())
                     return true;
                 else if (depart.getColonne() == arrivee.getColonne() - 1 && arrivee.getLigne() == depart.getLigne())

@@ -9,20 +9,23 @@ public class Pion extends Piece{
     @Override
     public boolean estValide(Position depart, Position arrivee) {
 
+        if (depart.getLigne() == arrivee.getLigne() && depart.getColonne() == arrivee.getColonne())
+            return true;
+
         if (arrivee.getColonne() >= 0 && arrivee.getColonne() <= 9 && arrivee.getLigne() >= 0 && arrivee.getLigne() <= 8) {
             if (getCouleur() == "noir") {
-                if (arrivee.getColonne() <= 4 && depart.getColonne() < 5) {
-                    if (arrivee.getColonne() == depart.getColonne() + 1) {
+                if (arrivee.getColonne() <= 4 && depart.getColonne() < 5 && arrivee.getLigne() == depart.getLigne()) {
+                    if (arrivee.getColonne() == depart.getColonne()) {
                         return true;
                     }
-                } else if (depart.getColonne() > 4) {
+                } else if (depart.getColonne() > 4  && arrivee.getLigne() == depart.getLigne()) {
                     if (arrivee.getLigne() == depart.getLigne() + 1 || arrivee.getLigne() == depart.getLigne() - 1 || arrivee.getColonne() == depart.getColonne() + 1) {
                         return true;
                     }
                 }
             } else if (getCouleur() == "rouge") {
                 if (arrivee.getColonne() > 4 && depart.getColonne() > 5) {
-                    if (arrivee.getColonne() == depart.getColonne() - 1) {
+                    if (arrivee.getColonne() == depart.getColonne()) {
                         return true;
                     }
                 } else if (depart.getColonne() < 5) {
