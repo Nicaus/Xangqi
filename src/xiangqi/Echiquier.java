@@ -1,10 +1,20 @@
 package xiangqi;
 
-public class Echequier implements MethodesEchiquier {
+public class Echiquier implements MethodesEchiquier {
     private Intersection[][] jeu;
 
-    public Echequier(Intersection[][] jeu) {
-        this.jeu = jeu;
+    public Echiquier() {
+        jeu = new Intersection[10][9];
+        for (int i = 0; i < 10; i++){
+            for (int j = 0; j < 9; j++){
+                jeu[i][j] = new Intersection();
+            }
+        }
+    }
+
+    @Override
+    public Intersection getIntersection(int ligne, int colonne){
+        return jeu[ligne][colonne];
     }
 
     @Override
@@ -56,9 +66,9 @@ public class Echequier implements MethodesEchiquier {
                 for (int i = depart.getLigne() - 1; i > arrivee.getLigne(); i--) {
                     if (jeu[i][depart.getColonne()].estOccupee()) {
                         if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Bombarde){
-                            //verifier que la ccase d'arrivee est occupee par l'ennemi
+                            //verifier que la case d'arrivee est occupee par l'ennemi
                             if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
-                                nbPiecesEntre += 1;
+                                nbPiecesEntre++;
                                 return true;
                             }
                             else
