@@ -27,7 +27,7 @@ public class Intersection {
 
     public boolean estOccupeeAdv(String couleur){
         if (estOccupee()){
-            if (piece.getCouleur() != couleur)
+            if (piece.getCouleur() == couleur)
                 return false;
         }
         return true;
