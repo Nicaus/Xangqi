@@ -64,6 +64,15 @@ public class Echiquier implements MethodesEchiquier {
         if (depart.getLigne() == arrivee.getLigne() && depart.getColonne() == arrivee.getColonne()){
             return true;
         }
+
+//        if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Char){
+//            for (int i = depart.getLigne() - 1; i > arrivee.getLigne(); i--) {
+//                if (jeu[i][depart.getColonne()].estOccupee()) {
+//                    return jeu[i][depart.getColonne()].estOccupee();
+//                }
+//            }
+//        }
+
         if (diffColonne == 0) {
             if (diffLigne < 0) {
                 for (int i = depart.getLigne() - 1; i > arrivee.getLigne(); i--) {
@@ -82,21 +91,41 @@ public class Echiquier implements MethodesEchiquier {
                     }
                 }
                 if (depart.getLigne() - 1 >= arrivee.getLigne()) {
-                    if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Bombarde)
+                    if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Roi)
+                        return true;
+                    else if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Bombarde) {
                         if (jeu[depart.getLigne() - 1][depart.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1)
                             return true;
-                    if (jeu[depart.getLigne() - 1][depart.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()))
-                        return false;
+                    }
+                    else if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Char)
+                        return true;
+
                 }
             }
         }
         // diagonales
-        //si c'est un cavalier qui va gauche //check if cavalier middle one
-        if (diffLigne == -1 && diffColonne == 1 || diffLigne == -2 && diffColonne == -1 || diffLigne == -1 && diffColonne == -2)
+
+        if (diffLigne == -1 && diffColonne == 1 ||
+                diffLigne == -2 && diffColonne == -1 || //si c'est un cavalier qui va gauche
+                diffLigne == -1 && diffColonne == -2)
             return true;
 
         // gauche
+        if (diffColonne == -2){
+            if (diffLigne < 1) {
+                if (diffLigne == 0)
+                    return true;
+            }
+        }
 
+        //down
+        if (diffLigne == 1){
+            if (diffColonne <= 2)
+                return true;
+        }
+
+        //right
+//        if (d)
 
         return false;
     }
