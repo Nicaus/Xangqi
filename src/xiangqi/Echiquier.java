@@ -578,82 +578,78 @@ public class Echiquier implements MethodesEchiquier {
         int diffColonne = arrivee.getColonne() - depart.getColonne();
         int nbPiecesEntre = 0;
 
-        // vers le haut
-//        if (diffColonne == 0) {
-//            if (diffLigne < 0) {
-                for (int i = depart.getLigne() - 1; i > arrivee.getLigne(); i--) {
-                    if (jeu[i][depart.getColonne()].estOccupee()) {
-                        if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
-                            nbPiecesEntre++;
-                            if (nbPiecesEntre != 1) {
-                                return false;
-                            }
-                        } else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                    else{
-                        return true;
-                    }
-                }
-//            }
-//        }
-        // vers le bas
-        for (int i = depart.getLigne() + 1; i < arrivee.getLigne(); i++) {
+// a travailler
+        for (int i = depart.getLigne() - 1; i >= arrivee.getLigne(); i--) {
             if (jeu[i][depart.getColonne()].estOccupee()) {
-                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
-                    nbPiecesEntre++;
-                    if (nbPiecesEntre != 1) {
+                nbPiecesEntre++;
+                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupee() && i == arrivee.getLigne()) {
+                    if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
+                        return true;
+                    } else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
+                        return true;
+                    } else {
                         return false;
                     }
-                } else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
-                    return true;
-                } else {
-                    return false;
                 }
             }
-            else{
-                return true;
+        }
+
+        // vers le bas
+        for (int i = depart.getLigne() + 1; i <= arrivee.getLigne(); i++) {
+            if (jeu[i][depart.getColonne()].estOccupee() && i == arrivee.getLigne()) {
+                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupee()) {
+                    if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
+                        nbPiecesEntre++;
+                        if (nbPiecesEntre != 1) {
+                            return false;
+                        }
+                    } else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return true;
+                }
             }
         }
 
         // vers left
-        for (int i = depart.getColonne() - 1; i < arrivee.getColonne(); i--) {
-            if (jeu[depart.getLigne()][i].estOccupee()) {
-                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
-                    nbPiecesEntre++;
-                    if (nbPiecesEntre != 1) {
+        for (int i = depart.getColonne() - 1; i >= arrivee.getColonne(); i--) {
+            if (jeu[depart.getLigne()][i].estOccupee() && i == arrivee.getColonne()) {
+                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupee()) {
+                    if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
+                        nbPiecesEntre++;
+                        if (nbPiecesEntre != 1) {
+                            return false;
+                        }
+                    } else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
+                        return true;
+                    } else {
                         return false;
                     }
-                } else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
-                    return true;
                 } else {
-                    return false;
+                    return true;
                 }
-            }
-            else{
-                return true;
             }
         }
-
         // vers right
-        for (int i = depart.getColonne() + 1; i > arrivee.getColonne(); i++) {
-            if (jeu[depart.getLigne()][i].estOccupee()) {
-                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
-                    nbPiecesEntre++;
-                    if (nbPiecesEntre != 1) {
+        for (int i = depart.getColonne() + 1; i <= arrivee.getColonne(); i++) {
+            if (jeu[depart.getLigne()][i].estOccupee() && i == arrivee.getColonne()) {
+                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupee()) {
+                    if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
+                        nbPiecesEntre++;
+                        if (nbPiecesEntre != 1) {
+                            return false;
+                        }
+                    } else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
+                        return true;
+                    } else {
                         return false;
                     }
-                } else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
-                    return true;
                 } else {
-                    return false;
+                    return true;
                 }
-            }
-            else{
-                return true;
             }
         }
         return false;
