@@ -163,16 +163,16 @@ public class FrameXiangQi extends JFrame {
 		          }
 		      }
 				//icones
-				grille[0][0].setIcon(new ImageIcon ( "icones/charNoir.png"));
-				grille[0][1].setIcon( new ImageIcon ( "icones/cavalierNoir.png"));
-				grille[0][2].setIcon( new ImageIcon( "icones/elephantNoir.png"));
-				grille[0][3].setIcon( new ImageIcon ( "icones/mandarinNoir.png"));
-				grille[0][4].setIcon( new ImageIcon("icones/roiNoir.png"));
+				grille[0][0].setIcon(new ImageIcon("icones/charNoir.png"));
+				grille[0][1].setIcon(new ImageIcon("icones/cavalierNoir.png"));
+				grille[0][2].setIcon(new ImageIcon("icones/elephantNoir.png"));
+				grille[0][3].setIcon(new ImageIcon("icones/mandarinNoir.png"));
+				grille[0][4].setIcon(new ImageIcon("icones/roiNoir.png"));
 				grille[0][5].setIcon(new ImageIcon("icones/mandarinNoir.png"));
-				grille[0][6].setIcon( new ImageIcon( "icones/elephantNoir.png"));
-				grille[0][7].setIcon( new ImageIcon ( "icones/cavalierNoir.png"));
-				grille[0][8].setIcon(new ImageIcon ( "icones/charNoir.png"));
-				grille[2][1].setIcon( new ImageIcon( "icones/bombardeNoir.png"));
+				grille[0][6].setIcon(new ImageIcon("icones/elephantNoir.png"));
+				grille[0][7].setIcon(new ImageIcon("icones/cavalierNoir.png"));
+				grille[0][8].setIcon(new ImageIcon("icones/charNoir.png"));
+				grille[2][1].setIcon(new ImageIcon("icones/bombardeNoir.png"));
 				grille[2][7].setIcon(new ImageIcon("icones/bombardeNoir.png"));
 				grille[3][0].setIcon(new ImageIcon("icones/pionNoir.png"));
 				grille[3][2].setIcon(new ImageIcon("icones/pionNoir.png"));
@@ -180,16 +180,16 @@ public class FrameXiangQi extends JFrame {
 				grille[3][6].setIcon(new ImageIcon("icones/pionNoir.png"));
 				grille[3][8].setIcon(new ImageIcon("icones/pionNoir.png"));
 				
-				grille[9][0].setIcon(new ImageIcon ( "icones/charRouge.png"));
-				grille[9][1].setIcon( new ImageIcon ( "icones/cavalierRouge.png"));
-				grille[9][2].setIcon( new ImageIcon( "icones/elephantRouge.png"));
-				grille[9][3].setIcon( new ImageIcon ( "icones/mandarinRouge.png"));
-				grille[9][4].setIcon( new ImageIcon("icones/roiRouge.png"));
+				grille[9][0].setIcon(new ImageIcon("icones/charRouge.png"));
+				grille[9][1].setIcon(new ImageIcon("icones/cavalierRouge.png"));
+				grille[9][2].setIcon(new ImageIcon("icones/elephantRouge.png"));
+				grille[9][3].setIcon(new ImageIcon("icones/mandarinRouge.png"));
+				grille[9][4].setIcon(new ImageIcon("icones/roiRouge.png"));
 				grille[9][5].setIcon(new ImageIcon("icones/mandarinRouge.png"));
-				grille[9][6].setIcon( new ImageIcon( "icones/elephantRouge.png"));
-				grille[9][7].setIcon( new ImageIcon ( "icones/cavalierRouge.png"));
-				grille[9][8].setIcon(new ImageIcon ( "icones/charRouge.png"));
-				grille[7][1].setIcon( new ImageIcon( "icones/bombardeRouge.png"));
+				grille[9][6].setIcon(new ImageIcon("icones/elephantRouge.png"));
+				grille[9][7].setIcon(new ImageIcon("icones/cavalierRouge.png"));
+				grille[9][8].setIcon(new ImageIcon("icones/charRouge.png"));
+				grille[7][1].setIcon(new ImageIcon("icones/bombardeRouge.png"));
 				grille[7][7].setIcon(new ImageIcon("icones/bombardeRouge.png"));
 				grille[6][0].setIcon(new ImageIcon("icones/pionRouge.png"));
 				grille[6][2].setIcon(new ImageIcon("icones/pionRouge.png"));

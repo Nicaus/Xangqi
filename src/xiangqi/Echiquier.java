@@ -60,7 +60,6 @@ public class Echiquier implements MethodesEchiquier {
         if (depart.getLigne() == arrivee.getLigne() && depart.getColonne() == arrivee.getColonne()){
             return true;
         }
-
         if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Cavalier){
             return cavalierMouvVal(depart, arrivee);
         }
@@ -82,93 +81,6 @@ public class Echiquier implements MethodesEchiquier {
         else if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Bombarde){
             return bombardeMouvVal(depart, arrivee);
         }
-//        if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Char){
-//            for (int i = depart.getLigne() - 1; i > arrivee.getLigne(); i--) {
-//                if (jeu[i][depart.getColonne()].estOccupee()) {
-//                    return jeu[i][depart.getColonne()].estOccupee();
-//                }
-//            }
-//        }
-
-        //Haut
-//        if (diffColonne == 0) {
-//            if (diffLigne < 0) {
-//                for (int i = depart.getLigne() - 1; i > arrivee.getLigne(); i--) {
-//                    if (jeu[i][depart.getColonne()].estOccupee()) {
-//                        if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Bombarde) {
-//                            //verifier que la case d'arrivee est occupee par l'ennemi
-//                            if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
-//                                nbPiecesEntre++;
-//                                if (nbPiecesEntre != 1) {
-//                                    return false;
-//                                }
-//                            }
-//                        }
-//                        else { // si ce n'est pas une bombarde
-//                            return false;
-//                        }
-//                    }
-//                }
-//                if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Bombarde) {
-//                    if (depart.getLigne() - 1 == arrivee.getLigne()){
-//                        return false;
-//                    }
-//                }
-//            }
-//        }
-
-        //Bas
-//        if (diffColonne == 0){
-//           if (diffLigne > 0){
-//               for (int i = depart.getLigne() + 1; i < arrivee.getLigne(); i++){
-//                   if (jeu[i][depart.getColonne()].estOccupee()) {
-//                       if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Bombarde) {
-//                           //verifier que la case d'arrivee est occupee par l'ennemi
-//                           if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
-//                               nbPiecesEntre++;
-//                               if (nbPiecesEntre != 1) {
-//                                   return false;
-//                               }
-//                           }
-//                       } else { // si ce n'est pas une bombarde
-//                           return false;
-//                       }
-//                   }
-//               }
-//               if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Bombarde) {
-//                   if (depart.getLigne() + 1 == arrivee.getLigne()) {
-//                       return false;
-//                   }
-//               }
-//           }
-//        }
-
-        //
-
-        // diagonales
-
-//        if (diffLigne == -1 && diffColonne == 1 ||
-//                diffLigne == -2 && diffColonne == -1 || //si c'est un cavalier qui va gauche
-//                diffLigne == -1 && diffColonne == -2)
-//            return true;
-//
-        // gauche
-//        if (diffColonne == -2){
-//            if (diffLigne < 1) {
-//                if (diffLigne == 0)
-//                    return true;
-//            }
-//        }
-//
-//        //down
-//        if (diffLigne == 1){
-//            if (diffColonne <= 2)
-//                return true;
-//        }
-//
-//        //right
-////        if (d)
-//
         return false;
     }
 
@@ -578,7 +490,7 @@ public class Echiquier implements MethodesEchiquier {
         int diffColonne = arrivee.getColonne() - depart.getColonne();
         int nbPiecesEntre = 0;
 
-// a travailler
+        //vers le haut
         for (int i = depart.getLigne() - 1; i >= arrivee.getLigne(); i--) {
             if (jeu[i][depart.getColonne()].estOccupee()) {
                 if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
@@ -592,7 +504,6 @@ public class Echiquier implements MethodesEchiquier {
                 }
             }
         }
-
 
         // vers le bas
         for (int i = depart.getLigne() + 1; i <= arrivee.getLigne(); i++) {
@@ -623,6 +534,7 @@ public class Echiquier implements MethodesEchiquier {
                 }
             }
         }
+
         // vers right
         for (int i = depart.getColonne() + 1; i <= arrivee.getColonne(); i++) {
             if (jeu[depart.getLigne()][i].estOccupee()) {
@@ -637,6 +549,7 @@ public class Echiquier implements MethodesEchiquier {
                 }
             }
         }
+
         return false;
     }
 
@@ -645,6 +558,20 @@ public class Echiquier implements MethodesEchiquier {
     public boolean roisNePouvantPasEtreFaceAFace(Position depart, Position arrivee) {
         int diffLigne = arrivee.getLigne() - depart.getLigne();
         int diffColonne = arrivee.getColonne() - depart.getColonne();
+        int nbRoi = 0;
+        int j = 0;
+
+        if (diffLigne == 0){
+            for (int i = 0; i < 10; i++) {
+                if (jeu[i][arrivee.getColonne()].estOccupee()) {
+                    if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Roi) {
+                        if (nbRoi == 1)
+                            return true;
+                        nbRoi++;
+                    }
+                }
+            }
+        }
 
         return false;
     }
