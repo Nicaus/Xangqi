@@ -581,74 +581,59 @@ public class Echiquier implements MethodesEchiquier {
 // a travailler
         for (int i = depart.getLigne() - 1; i >= arrivee.getLigne(); i--) {
             if (jeu[i][depart.getColonne()].estOccupee()) {
-                nbPiecesEntre++;
-                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupee() && i == arrivee.getLigne()) {
-                    if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
-                        return true;
-                    } else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
-                        return true;
-                    } else {
+                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
+                    if (jeu[i][depart.getColonne()] == jeu[arrivee.getLigne()][arrivee.getColonne()])
+                    return true;
+                }
+                else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
+                    nbPiecesEntre++;
+                    if (jeu[i][arrivee.getColonne()] == jeu[arrivee.getLigne()][arrivee.getColonne()])
                         return false;
-                    }
                 }
             }
         }
 
+
         // vers le bas
         for (int i = depart.getLigne() + 1; i <= arrivee.getLigne(); i++) {
-            if (jeu[i][depart.getColonne()].estOccupee() && i == arrivee.getLigne()) {
-                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupee()) {
-                    if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
-                        nbPiecesEntre++;
-                        if (nbPiecesEntre != 1) {
-                            return false;
-                        }
-                    } else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
+            if (jeu[i][depart.getColonne()].estOccupee()) {
+                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
+                    if (jeu[i][depart.getColonne()] == jeu[arrivee.getLigne()][arrivee.getColonne()])
                         return true;
-                    } else {
+                }
+                else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
+                    nbPiecesEntre++;
+                    if (jeu[i][arrivee.getColonne()] == jeu[arrivee.getLigne()][arrivee.getColonne()])
                         return false;
-                    }
-                } else {
-                    return true;
                 }
             }
         }
 
         // vers left
         for (int i = depart.getColonne() - 1; i >= arrivee.getColonne(); i--) {
-            if (jeu[depart.getLigne()][i].estOccupee() && i == arrivee.getColonne()) {
-                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupee()) {
-                    if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
-                        nbPiecesEntre++;
-                        if (nbPiecesEntre != 1) {
-                            return false;
-                        }
-                    } else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
+            if (jeu[depart.getLigne()][i].estOccupee()) {
+                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && jeu[depart.getLigne()][i] == jeu[arrivee.getLigne()][arrivee.getColonne()]) {
+                    if (nbPiecesEntre == 1)
                     return true;
+                }
+                else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
+                    nbPiecesEntre++;
+                    if (jeu[i][arrivee.getColonne()] == jeu[arrivee.getLigne()][arrivee.getColonne()])
+                        return false;
                 }
             }
         }
         // vers right
         for (int i = depart.getColonne() + 1; i <= arrivee.getColonne(); i++) {
-            if (jeu[depart.getLigne()][i].estOccupee() && i == arrivee.getColonne()) {
-                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupee()) {
-                    if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
-                        nbPiecesEntre++;
-                        if (nbPiecesEntre != 1) {
-                            return false;
-                        }
-                    } else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
+            if (jeu[depart.getLigne()][i].estOccupee()) {
+                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && jeu[depart.getLigne()][i] == jeu[arrivee.getLigne()][arrivee.getColonne()]) {
+                    if (nbPiecesEntre == 1)
                         return true;
-                    } else {
+                }
+                else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
+                    nbPiecesEntre++;
+                    if (jeu[i][arrivee.getColonne()] == jeu[arrivee.getLigne()][arrivee.getColonne()])
                         return false;
-                    }
-                } else {
-                    return true;
                 }
             }
         }
@@ -658,6 +643,9 @@ public class Echiquier implements MethodesEchiquier {
 
     @Override
     public boolean roisNePouvantPasEtreFaceAFace(Position depart, Position arrivee) {
+        int diffLigne = arrivee.getLigne() - depart.getLigne();
+        int diffColonne = arrivee.getColonne() - depart.getColonne();
+
         return false;
     }
 }
