@@ -525,7 +525,7 @@ public class Echiquier implements MethodesEchiquier {
             if (jeu[depart.getLigne()][i].estOccupee()) {
                 if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && jeu[depart.getLigne()][i] == jeu[arrivee.getLigne()][arrivee.getColonne()]) {
                     if (nbPiecesEntre == 1)
-                    return true;
+                        return true;
                 }
                 else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
                     nbPiecesEntre++;
@@ -561,7 +561,7 @@ public class Echiquier implements MethodesEchiquier {
         int nbRoi = 0;
         int j = 0;
 
-        if (diffLigne == 0){
+        if (diffColonne == 0){
             for (int i = 0; i < 10; i++) {
                 if (jeu[i][arrivee.getColonne()].estOccupee()) {
                     if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Roi) {

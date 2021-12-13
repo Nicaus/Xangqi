@@ -1,40 +1,61 @@
 package xiangqi;
 
 public class Pion extends Piece{
-
-    public Pion(String nom, String couleur){
-        super(nom, couleur);
+    public Pion  ( String nom, String couleur)
+    {
+        super ( nom, couleur);
     }
 
-    @Override
-    public boolean estValide(Position depart, Position arrivee) {
-
-        if (depart.getLigne() == arrivee.getLigne() && depart.getColonne() == arrivee.getColonne())
+    public boolean estValide ( Position depart, Position arrivee)
+    {
+        if ( depart.getLigne() == arrivee.getLigne() && depart.getColonne() == arrivee.getColonne())
             return true;
 
-        if (arrivee.getColonne() >= 0 && arrivee.getColonne() <= 9 && arrivee.getLigne() >= 0 && arrivee.getLigne() <= 8) {
-            if (getCouleur() == "noir") {
-                if (arrivee.getColonne() <= 4 && depart.getColonne() < 5 && arrivee.getLigne() == depart.getLigne()) {
-                    if (arrivee.getColonne() == depart.getColonne()) {
+        else if ( getCouleur() == "noir"){
+            if ( depart.getLigne() <= 4)
+            {
+                if (( arrivee.getLigne() - depart.getLigne() == 1 ) && arrivee.getColonne() == depart.getColonne())
+                    return true;
+                else
+                    return false;
+            }
+            else //de l'autre coté de la rivière
+
+            {
+                if (( norme(depart, arrivee) <= 1 ) )
+                {
+                    if ( arrivee.getLigne() - depart.getLigne() == -1) //il recule
+                        return false;
+                    else
                         return true;
-                    }
-                } else if (depart.getColonne() > 4  && arrivee.getLigne() == depart.getLigne()) {
-                    if (arrivee.getLigne() == depart.getLigne() + 1 || arrivee.getLigne() == depart.getLigne() - 1 || arrivee.getColonne() == depart.getColonne() + 1) {
-                        return true;
-                    }
                 }
-            } else if (getCouleur() == "rouge") {
-                if (arrivee.getColonne() > 4 && depart.getColonne() > 5) {
-                    if (arrivee.getColonne() == depart.getColonne()) {
-                        return true;
-                    }
-                } else if (depart.getColonne() < 5) {
-                    if (arrivee.getLigne() == depart.getLigne() + 1 || arrivee.getLigne() == depart.getLigne() - 1 || arrivee.getColonne() == depart.getColonne() - 1) {
-                        return true;
-                    }
-                }
+                else
+                    return false;
+
             }
         }
-        return false;
+        else {//rouge
+            if ( depart.getLigne() >= 5)
+            {
+                if (( arrivee.getLigne() - depart.getLigne() == -1 ) && arrivee.getColonne() == depart.getColonne())
+                    return true;
+                else
+                    return false;
+            }
+            else //de l'autre coté de la rivière
+
+            {
+                if (( norme(depart, arrivee) <= 1 ) )
+                {
+                    if ( arrivee.getLigne() - depart.getLigne() == 1) //il recule
+                        return false;
+                    else
+                        return true;
+                }
+                else
+                    return false;
+
+            }
+        }
     }
 }

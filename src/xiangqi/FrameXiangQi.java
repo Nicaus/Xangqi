@@ -18,8 +18,6 @@ public class FrameXiangQi extends JFrame {
 	Ecouteur ec;
 	Echiquier echiquier; //échiquier faisant le lien avec la logique du jeu
 
-
-
 	/**
 	 * Launch the application.
 	 */
@@ -49,8 +47,7 @@ public class FrameXiangQi extends JFrame {
 		
 		echiquier = new Echiquier(); //création de l'échiquier et des 90 JLabels
 		grille = new JLabel[10][9];
-		
-		
+
 		setTitle("XiangQi");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 936, 789);
@@ -59,9 +56,7 @@ public class FrameXiangQi extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		
-		
+
 		panelConteneur= new JPanel();
 		panelConteneur.setBackground(new Color(255, 228, 196));
 		panelConteneur.setBounds(26, 105, 675, 653);
@@ -73,9 +68,7 @@ public class FrameXiangQi extends JFrame {
 		labelImage.setBounds(30, 115, 690, 627);
 		contentPane.add(labelImage);
 		labelImage.setIcon(( new ImageIcon( "fond2.png")));
-		
-		
-		
+
 		panelNoirs = new JPanel();
 		panelNoirs.setBackground(UIManager.getColor("CheckBox.darkShadow"));
 		panelNoirs.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
@@ -117,9 +110,7 @@ public class FrameXiangQi extends JFrame {
 		
 		panelControle.add(labelCouleur);
 		labelCouleur.setFont(new Font("Tahoma", Font.BOLD, 20));
-		
-		
-		
+
 		//gestion des événements
 		ec = new Ecouteur();
 		for ( int i = 0 ; i < 10 ; i ++ )
@@ -132,86 +123,77 @@ public class FrameXiangQi extends JFrame {
 			}
 		boutonDebuter.addMouseListener(ec);
 		boutonRecommencer.addMouseListener(ec);
-	
-		
-	
 
 	}
 	
-	private class Ecouteur extends MouseAdapter
-	{
+	private class Ecouteur extends MouseAdapter {
 		int ligneClic, colonneClic; //intersection where it gets clicked recently
 		// if tampon vide, debuter, if tampon remplis, arrivee
 		Piece pieceTampon, pieceEnlevee; //piece entrain de deplacer
 		ImageIcon iconeTampon; //equivalent de piece tampon mais pour aspect graphique
 		Position depart, arrivee;
 		String couleurControle; //valeur rouge ou noir ;
-		
-		
-
 		  
-		  
-		  public void reset(){
-		      echiquier = new Echiquier ();
-		      echiquier.debuter();
-		      // rafra�chir l'interface graphique
-		      panelRouges.removeAll();
-		      panelNoirs.removeAll();
-		      for ( int i = 0; i < 8 ; i++ ) {
-		          for ( int j = 0; j <8 ; j ++) {
-		              grille[i][j].setIcon (null);
-		          }
-		      }
+		public void reset(){
+			echiquier = new Echiquier ();
+			echiquier.debuter();
+			// rafra�chir l'interface graphique
+			panelRouges.removeAll();
+			panelNoirs.removeAll();
+			for (int i = 0; i < 10; i++) {
+				for (int j = 0; j < 9; j ++) {
+					grille[i][j].setIcon (null);
+				}
+			}
 				//icones
-				grille[0][0].setIcon(new ImageIcon("icones/charNoir.png"));
-				grille[0][1].setIcon(new ImageIcon("icones/cavalierNoir.png"));
-				grille[0][2].setIcon(new ImageIcon("icones/elephantNoir.png"));
-				grille[0][3].setIcon(new ImageIcon("icones/mandarinNoir.png"));
-				grille[0][4].setIcon(new ImageIcon("icones/roiNoir.png"));
-				grille[0][5].setIcon(new ImageIcon("icones/mandarinNoir.png"));
-				grille[0][6].setIcon(new ImageIcon("icones/elephantNoir.png"));
-				grille[0][7].setIcon(new ImageIcon("icones/cavalierNoir.png"));
-				grille[0][8].setIcon(new ImageIcon("icones/charNoir.png"));
-				grille[2][1].setIcon(new ImageIcon("icones/bombardeNoir.png"));
-				grille[2][7].setIcon(new ImageIcon("icones/bombardeNoir.png"));
-				grille[3][0].setIcon(new ImageIcon("icones/pionNoir.png"));
-				grille[3][2].setIcon(new ImageIcon("icones/pionNoir.png"));
-				grille[3][4].setIcon(new ImageIcon("icones/pionNoir.png"));
-				grille[3][6].setIcon(new ImageIcon("icones/pionNoir.png"));
-				grille[3][8].setIcon(new ImageIcon("icones/pionNoir.png"));
-				
-				grille[9][0].setIcon(new ImageIcon("icones/charRouge.png"));
-				grille[9][1].setIcon(new ImageIcon("icones/cavalierRouge.png"));
-				grille[9][2].setIcon(new ImageIcon("icones/elephantRouge.png"));
-				grille[9][3].setIcon(new ImageIcon("icones/mandarinRouge.png"));
-				grille[9][4].setIcon(new ImageIcon("icones/roiRouge.png"));
-				grille[9][5].setIcon(new ImageIcon("icones/mandarinRouge.png"));
-				grille[9][6].setIcon(new ImageIcon("icones/elephantRouge.png"));
-				grille[9][7].setIcon(new ImageIcon("icones/cavalierRouge.png"));
-				grille[9][8].setIcon(new ImageIcon("icones/charRouge.png"));
-				grille[7][1].setIcon(new ImageIcon("icones/bombardeRouge.png"));
-				grille[7][7].setIcon(new ImageIcon("icones/bombardeRouge.png"));
-				grille[6][0].setIcon(new ImageIcon("icones/pionRouge.png"));
-				grille[6][2].setIcon(new ImageIcon("icones/pionRouge.png"));
-				grille[6][4].setIcon(new ImageIcon("icones/pionRouge.png"));
-				grille[6][6].setIcon(new ImageIcon("icones/pionRouge.png"));
-				grille[6][8].setIcon(new ImageIcon("icones/pionRouge.png"));
-		
-		      couleurControle = "noir";
-		      labelCouleur.setText("C'est aux " + couleurControle + "s à jouer ");
-		      // FenetreJeuCorr.this.setVisible(true);
-		     repaint();
-		      panelRouges.updateUI();
-		      panelNoirs.updateUI();
-		  }
+			grille[0][0].setIcon(new ImageIcon("icones/charNoir.png"));
+			grille[0][1].setIcon(new ImageIcon("icones/cavalierNoir.png"));
+			grille[0][2].setIcon(new ImageIcon("icones/elephantNoir.png"));
+			grille[0][3].setIcon(new ImageIcon("icones/mandarinNoir.png"));
+			grille[0][4].setIcon(new ImageIcon("icones/roiNoir.png"));
+			grille[0][5].setIcon(new ImageIcon("icones/mandarinNoir.png"));
+			grille[0][6].setIcon(new ImageIcon("icones/elephantNoir.png"));
+			grille[0][7].setIcon(new ImageIcon("icones/cavalierNoir.png"));
+			grille[0][8].setIcon(new ImageIcon("icones/charNoir.png"));
+			grille[2][1].setIcon(new ImageIcon("icones/bombardeNoir.png"));
+			grille[2][7].setIcon(new ImageIcon("icones/bombardeNoir.png"));
+			grille[3][0].setIcon(new ImageIcon("icones/pionNoir.png"));
+			grille[3][2].setIcon(new ImageIcon("icones/pionNoir.png"));
+			grille[3][4].setIcon(new ImageIcon("icones/pionNoir.png"));
+			grille[3][6].setIcon(new ImageIcon("icones/pionNoir.png"));
+			grille[3][8].setIcon(new ImageIcon("icones/pionNoir.png"));
+
+			grille[9][0].setIcon(new ImageIcon("icones/charRouge.png"));
+			grille[9][1].setIcon(new ImageIcon("icones/cavalierRouge.png"));
+			grille[9][2].setIcon(new ImageIcon("icones/elephantRouge.png"));
+			grille[9][3].setIcon(new ImageIcon("icones/mandarinRouge.png"));
+			grille[9][4].setIcon(new ImageIcon("icones/roiRouge.png"));
+			grille[9][5].setIcon(new ImageIcon("icones/mandarinRouge.png"));
+			grille[9][6].setIcon(new ImageIcon("icones/elephantRouge.png"));
+			grille[9][7].setIcon(new ImageIcon("icones/cavalierRouge.png"));
+			grille[9][8].setIcon(new ImageIcon("icones/charRouge.png"));
+			grille[7][1].setIcon(new ImageIcon("icones/bombardeRouge.png"));
+			grille[7][7].setIcon(new ImageIcon("icones/bombardeRouge.png"));
+			grille[6][0].setIcon(new ImageIcon("icones/pionRouge.png"));
+			grille[6][2].setIcon(new ImageIcon("icones/pionRouge.png"));
+			grille[6][4].setIcon(new ImageIcon("icones/pionRouge.png"));
+			grille[6][6].setIcon(new ImageIcon("icones/pionRouge.png"));
+			grille[6][8].setIcon(new ImageIcon("icones/pionRouge.png"));
+
+		    couleurControle = "noir";
+		    labelCouleur.setText("C'est aux " + couleurControle + "s à jouer ");
+		    // FenetreJeuCorr.this.setVisible(true);
+		    repaint();
+		    panelRouges.updateUI();
+		    panelNoirs.updateUI();
+		}
 	
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			// TODO Auto-generated method stub
 			
-			if ( e.getSource() == boutonDebuter)
-			{
+			if ( e.getSource() == boutonDebuter) {
 				echiquier.debuter();
 				grille[0][0].setIcon(new ImageIcon("icones/charNoir.png"));
 				grille[0][1].setIcon(new ImageIcon("icones/cavalierNoir.png"));
@@ -246,29 +228,21 @@ public class FrameXiangQi extends JFrame {
 				grille[6][4].setIcon(new ImageIcon("icones/pionRouge.png"));
 				grille[6][6].setIcon(new ImageIcon("icones/pionRouge.png"));
 				grille[6][8].setIcon(new ImageIcon("icones/pionRouge.png"));
-
 			}
-			else if ( e.getSource() == boutonRecommencer)
-			{
+			else if ( e.getSource() == boutonRecommencer) {
 				reset();
 			}
-			else // il s'agit d'un label / intersection
-			{
+			else { // il s'agit d'un label / intersection
 			    //trouver lequel
-			    for ( int i = 0; i < 10 ; i++ )
-			      {
-			      for ( int j = 0; j<9; j++ )
-			        {
-			        if (e.getSource() == grille[i][j])
-			          {
-			          ligneClic = i;
-			          colonneClic = j;
-			          }
-			        }
-			      }
-			      
-			    
-			    
+				for (int i = 0; i < 10 ; i++) {
+					for (int j = 0; j < 9; j++) {
+						if (e.getSource() == grille[i][j]) {
+							ligneClic = i;
+							colonneClic = j;
+						}
+					}
+				}
+
 				// 1er cas : clique sur une case occupee , tampon vide : cas Depart
 				if (echiquier.getIntersection(ligneClic, colonneClic).estOccupee() && pieceTampon == null){
 					depart = new Position(ligneClic, colonneClic);
@@ -278,20 +252,24 @@ public class FrameXiangQi extends JFrame {
 				}
 
 				// 2éme cas : clique sur une case vide ; tampon plein cas d'arrivee,
+				if (!(echiquier.getIntersection(ligneClic, colonneClic).estOccupee()) && pieceTampon != null){
+					arrivee = new Position(ligneClic, colonneClic);
+					if (pieceTampon.estValide(depart, arrivee)) {
+						if (echiquier.cheminPossible(depart, arrivee)) {
+//							if (echiquier.roisNePouvantPasEtreFaceAFace(depart, arrivee)) {
+								depart = arrivee;
+								pieceTampon = null;
+								grille[ligneClic][colonneClic].setIcon(iconeTampon);
+//							}
+						}
+					}
+				}
 
 			    // 3éme cas : clique sur une case occupee et tampon plein : case d arrivee /capture ( peut-etre piece qui ne bouge pas )
 
 			}
-		  }
-			       
-			      
-			       
+		}
 	}
-
-			     
-			            
-			       
-			            
 }
 
 
