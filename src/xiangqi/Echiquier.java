@@ -366,65 +366,39 @@ public class Echiquier implements MethodesEchiquier {
     }
 
     public boolean charMouvVal(Position depart, Position arrivee){
+        if (jeu[depart.getLigne()][depart.getColonne()] == jeu[arrivee.getLigne()][arrivee.getColonne()])
+            return true;
+
         // vers le haut
-        for (int i = depart.getLigne() - 1; i >= arrivee.getLigne(); i--){
-            if (jeu[i][depart.getColonne()].estOccupee() && i == arrivee.getLigne()) {
-                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupee()) {
-                    if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv(jeu[depart.getLigne()][depart.getColonne()].getPiece().getCouleur())) {
-                        return true;
-                    }
-                    else
-                        return false;
-                }
-                else
-                    return true;
+        for (int i = depart.getLigne() - 1; i > arrivee.getLigne(); i--){
+            if (jeu[i][depart.getColonne()].estOccupee()) {
+                return false;
             }
         }
 
         // vers le bas
-        for (int i = depart.getLigne() + 1; i <= arrivee.getLigne(); i++){
-            if (jeu[i][depart.getColonne()].estOccupee() && i == arrivee.getLigne()) {
-                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupee()) {
-                    if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv(jeu[depart.getLigne()][depart.getColonne()].getPiece().getCouleur())) {
-                        return true;
-                    }
-                    else
-                        return false;
-                }
-                else
-                    return true;
+        for (int i = depart.getLigne() + 1; i < arrivee.getLigne(); i++){
+            if (jeu[i][depart.getColonne()].estOccupee()) {
+                return false;
             }
         }
 
         // vers left
-        for (int i = depart.getColonne() - 1; i >= arrivee.getColonne(); i--){
-            if (jeu[depart.getLigne()][i].estOccupee() && i == arrivee.getColonne()) {
-                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupee()) {
-                    if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv(jeu[depart.getLigne()][depart.getColonne()].getPiece().getCouleur())) {
-                        return true;
-                    }
-                    else
-                        return false;
-                }
-                else
-                    return true;
+        for (int i = depart.getColonne() - 1; i > arrivee.getColonne(); i--){
+            if (jeu[depart.getLigne()][i].estOccupee()) {
+                return false;
             }
         }
 
         // vers right
-        for (int i = depart.getColonne() + 1; i <= arrivee.getColonne(); i++){
-            if (jeu[depart.getLigne()][i].estOccupee() && i == arrivee.getColonne()) {
-                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupee()) {
-                    if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv(jeu[depart.getLigne()][depart.getColonne()].getPiece().getCouleur())) {
-                        return true;
-                    }
-                    else
-                        return false;
-                }
-                else
-                    return true;
+        for (int i = depart.getColonne() + 1; i < arrivee.getColonne(); i++){
+            if (jeu[depart.getLigne()][i].estOccupee()) {
+                return false;
             }
         }
+
+        if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv(jeu[depart.getLigne()][depart.getColonne()].getPiece().getCouleur()))
+            return true;
 
         return false;
     }

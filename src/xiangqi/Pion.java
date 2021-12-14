@@ -6,24 +6,19 @@ public class Pion extends Piece{
         super ( nom, couleur);
     }
 
-    public boolean estValide ( Position depart, Position arrivee)
-    {
+    public boolean estValide ( Position depart, Position arrivee) {
         if ( depart.getLigne() == arrivee.getLigne() && depart.getColonne() == arrivee.getColonne())
             return true;
 
         else if ( getCouleur() == "noir"){
-            if ( depart.getLigne() <= 4)
-            {
+            if ( depart.getLigne() <= 4) {
                 if (( arrivee.getLigne() - depart.getLigne() == 1 ) && arrivee.getColonne() == depart.getColonne())
                     return true;
                 else
                     return false;
             }
-            else //de l'autre coté de la rivière
-
-            {
-                if (( norme(depart, arrivee) <= 1 ) )
-                {
+            else { //de l'autre coté de la rivière
+                if (( norme(depart, arrivee) <= 1 ) ) {
                     if ( arrivee.getLigne() - depart.getLigne() == -1) //il recule
                         return false;
                     else
@@ -35,18 +30,14 @@ public class Pion extends Piece{
             }
         }
         else {//rouge
-            if ( depart.getLigne() >= 5)
-            {
+            if ( depart.getLigne() >= 5) {
                 if (( arrivee.getLigne() - depart.getLigne() == -1 ) && arrivee.getColonne() == depart.getColonne())
                     return true;
                 else
                     return false;
             }
-            else //de l'autre coté de la rivière
-
-            {
-                if (( norme(depart, arrivee) <= 1 ) )
-                {
+            else { //de l'autre coté de la rivière
+                if (( norme(depart, arrivee) <= 1 ) ) {
                     if ( arrivee.getLigne() - depart.getLigne() == 1) //il recule
                         return false;
                     else
