@@ -229,9 +229,8 @@ public class Echiquier implements MethodesEchiquier {
                 else
                     return false;
             }
-            else if (jeu[depart.getLigne() - 1][depart.getColonne() - 1].estOccupee()){
+            else if (jeu[depart.getLigne() + 1][depart.getColonne() + 1].estOccupee()){
                 return false;
-
             }
             else
                 return true;

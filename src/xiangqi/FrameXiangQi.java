@@ -18,15 +18,14 @@ public class FrameXiangQi extends JFrame {
 	Ecouteur ec;
 	Echiquier echiquier; //échiquier faisant le lien avec la logique du jeu
 
-	/**
-	 * Launch the application.
-	 */
+	/* Launch the application */
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -40,9 +39,7 @@ public class FrameXiangQi extends JFrame {
 		});
 	}
 
-	/**
-	 *constructeur
-	 */
+	/* constructeur */
 	public FrameXiangQi() {
 		
 		echiquier = new Echiquier(); //création de l'échiquier et des 90 JLabels
@@ -127,25 +124,27 @@ public class FrameXiangQi extends JFrame {
 	}
 	
 	private class Ecouteur extends MouseAdapter {
-		int ligneClic, colonneClic; //intersection where it gets clicked recently
+		int ligneClic, colonneClic; // intersection where it gets clicked recently
 		// if tampon vide, debuter, if tampon remplis, arrivee
 		Piece pieceTampon, pieceEnlevee; //piece entrain de deplacer
-		ImageIcon iconeTampon; //equivalent de piece tampon mais pour aspect graphique
+		ImageIcon iconeTampon; // equivalent de piece tampon mais pour aspect graphique
 		Position depart, arrivee;
-		String couleurControle; //valeur rouge ou noir ;
-		  
+		String couleurControle; // valeur rouge ou noir ;
+
 		public void reset(){
-			echiquier = new Echiquier ();
+			echiquier = new Echiquier();
 			echiquier.debuter();
-			// rafra�chir l'interface graphique
+
+			// rafraichir l'interface graphique
 			panelRouges.removeAll();
 			panelNoirs.removeAll();
 			for (int i = 0; i < 10; i++) {
-				for (int j = 0; j < 9; j ++) {
+				for (int j = 0; j < 9; j++) {
 					grille[i][j].setIcon (null);
 				}
 			}
-				//icones
+
+			// icones
 			grille[0][0].setIcon(new ImageIcon("icones/charNoir.png"));
 			grille[0][1].setIcon(new ImageIcon("icones/cavalierNoir.png"));
 			grille[0][2].setIcon(new ImageIcon("icones/elephantNoir.png"));
@@ -187,13 +186,12 @@ public class FrameXiangQi extends JFrame {
 		    panelRouges.updateUI();
 		    panelNoirs.updateUI();
 		}
-	
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			// TODO Auto-generated method stub
 			
-			if ( e.getSource() == boutonDebuter) {
+			if (e.getSource() == boutonDebuter) {
 				echiquier.debuter();
 				grille[0][0].setIcon(new ImageIcon("icones/charNoir.png"));
 				grille[0][1].setIcon(new ImageIcon("icones/cavalierNoir.png"));
@@ -228,12 +226,13 @@ public class FrameXiangQi extends JFrame {
 				grille[6][4].setIcon(new ImageIcon("icones/pionRouge.png"));
 				grille[6][6].setIcon(new ImageIcon("icones/pionRouge.png"));
 				grille[6][8].setIcon(new ImageIcon("icones/pionRouge.png"));
+
 			}
 			else if ( e.getSource() == boutonRecommencer) {
 				reset();
 			}
 			else { // il s'agit d'un label / intersection
-			    //trouver lequel
+			    // trouver lequel
 				for (int i = 0; i < 10 ; i++) {
 					for (int j = 0; j < 9; j++) {
 						if (e.getSource() == grille[i][j]) {
@@ -243,7 +242,7 @@ public class FrameXiangQi extends JFrame {
 					}
 				}
 
-				// 1er cas : clique sur une case occupee , tampon vide : cas Depart
+				// 1er cas: clique sur une case occupee, tampon vide : cas Depart
 				if (echiquier.getIntersection(ligneClic, colonneClic).estOccupee() && pieceTampon == null){
 					depart = new Position(ligneClic, colonneClic);
 					pieceTampon = echiquier.getIntersection(ligneClic, colonneClic).getPiece();
@@ -251,13 +250,16 @@ public class FrameXiangQi extends JFrame {
 					grille[ligneClic][colonneClic].setIcon(null);
 				}
 
-				// 2éme cas : clique sur une case vide ; tampon plein cas d'arrivee,
-				if (!(echiquier.getIntersection(ligneClic, colonneClic).estOccupee()) && pieceTampon != null){
+				// 2éme cas: clique sur une case vide; tampon plein cas d'arrivee,
+				else if (!(echiquier.getIntersection(ligneClic, colonneClic).estOccupee()) && pieceTampon != null){
 					arrivee = new Position(ligneClic, colonneClic);
+//					echiquier.getIntersection(ligneClic, colonneClic).setPiece(arrivee);
 					if (pieceTampon.estValide(depart, arrivee)) {
 						if (echiquier.cheminPossible(depart, arrivee)) {
 //							if (echiquier.roisNePouvantPasEtreFaceAFace(depart, arrivee)) {
+//								depart = new Position(ligneClic, colonneClic);
 								depart = arrivee;
+								arrivee = null;
 								pieceTampon = null;
 								grille[ligneClic][colonneClic].setIcon(iconeTampon);
 //							}
@@ -265,8 +267,20 @@ public class FrameXiangQi extends JFrame {
 					}
 				}
 
-			    // 3éme cas : clique sur une case occupee et tampon plein : case d arrivee /capture ( peut-etre piece qui ne bouge pas )
-
+			    // 3éme cas: clique sur une case occupee et tampon plein: case d arrivee /capture ( peut-etre piece qui ne bouge pas)
+				else if (echiquier.getIntersection(ligneClic, colonneClic).estOccupee() && pieceTampon != null){
+					arrivee = new Position(ligneClic, colonneClic);
+					if (pieceTampon.estValide(depart, arrivee)) {
+						if (echiquier.cheminPossible(depart, arrivee)) {
+//							if (echiquier.roisNePouvantPasEtreFaceAFace(depart, arrivee)) {
+								depart = arrivee;
+								arrivee = null;
+								pieceTampon = null;
+								grille[ligneClic][colonneClic].setIcon(iconeTampon);
+//							}
+						}
+					}
+				}
 			}
 		}
 	}

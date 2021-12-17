@@ -9,6 +9,8 @@ public class Elephant extends Piece{
 
     @Override
     public boolean estValide(Position depart, Position arrivee) {
+        if (depart.getLigne() == arrivee.getLigne() && depart.getColonne() == arrivee.getColonne())
+            return true;
 
         if (arrivee.getColonne() >= 0 && arrivee.getColonne() <= 9 && arrivee.getLigne() >= 0 && arrivee.getLigne() <= 8) {
             if (Objects.equals(getCouleur(), "noir")) {
