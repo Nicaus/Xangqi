@@ -233,7 +233,7 @@ public class FrameXiangQi extends JFrame {
 			}
 			else { // il s'agit d'un label / intersection
 			    // trouver lequel
-				for (int i = 0; i < 10 ; i++) {
+				for (int i = 0; i < 10; i++) {
 					for (int j = 0; j < 9; j++) {
 						if (e.getSource() == grille[i][j]) {
 							ligneClic = i;
@@ -243,7 +243,7 @@ public class FrameXiangQi extends JFrame {
 				}
 
 				// 1er cas: clique sur une case occupee, tampon vide : cas Depart
-				if (echiquier.getIntersection(ligneClic, colonneClic).estOccupee() && pieceTampon == null){
+				if (echiquier.getIntersection(ligneClic, colonneClic).estOccupee() && pieceTampon == null) {
 					depart = new Position(ligneClic, colonneClic);
 					pieceTampon = echiquier.getIntersection(ligneClic, colonneClic).getPiece();
 					iconeTampon = (ImageIcon) grille[ligneClic][colonneClic].getIcon();
@@ -251,32 +251,39 @@ public class FrameXiangQi extends JFrame {
 				}
 
 				// 2éme cas: clique sur une case vide; tampon plein cas d'arrivee,
-				else if (!(echiquier.getIntersection(ligneClic, colonneClic).estOccupee()) && pieceTampon != null){
+				else if (!(echiquier.getIntersection(ligneClic, colonneClic).estOccupee()) && pieceTampon != null) {
 					arrivee = new Position(ligneClic, colonneClic);
 //					echiquier.getIntersection(ligneClic, colonneClic).setPiece(arrivee);
 					if (pieceTampon.estValide(depart, arrivee)) {
 						if (echiquier.cheminPossible(depart, arrivee)) {
 //							if (echiquier.roisNePouvantPasEtreFaceAFace(depart, arrivee)) {
 //								depart = new Position(ligneClic, colonneClic);
+								echiquier.getIntersection(ligneClic, colonneClic).setPiece(null);
+
 								depart = arrivee;
+								echiquier.getIntersection(ligneClic, colonneClic).setPiece(pieceTampon);
 								arrivee = null;
 								pieceTampon = null;
 								grille[ligneClic][colonneClic].setIcon(iconeTampon);
+								iconeTampon = null;
 //							}
 						}
 					}
 				}
 
-			    // 3éme cas: clique sur une case occupee et tampon plein: case d arrivee /capture ( peut-etre piece qui ne bouge pas)
-				else if (echiquier.getIntersection(ligneClic, colonneClic).estOccupee() && pieceTampon != null){
+			    // 3éme cas: clique sur une case occupee et tampon plein: case d'arrivee/capture (peut-etre piece qui ne bouge pas)
+				else if (echiquier.getIntersection(ligneClic, colonneClic).estOccupee() && pieceTampon != null) {
 					arrivee = new Position(ligneClic, colonneClic);
 					if (pieceTampon.estValide(depart, arrivee)) {
 						if (echiquier.cheminPossible(depart, arrivee)) {
 //							if (echiquier.roisNePouvantPasEtreFaceAFace(depart, arrivee)) {
+								echiquier.getIntersection(ligneClic, colonneClic).setPiece(null);
 								depart = arrivee;
+								echiquier.getIntersection(ligneClic, colonneClic).setPiece(pieceTampon);
 								arrivee = null;
 								pieceTampon = null;
 								grille[ligneClic][colonneClic].setIcon(iconeTampon);
+								iconeTampon = null;
 //							}
 						}
 					}
