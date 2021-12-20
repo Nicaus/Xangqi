@@ -474,13 +474,16 @@ public class Echiquier implements MethodesEchiquier {
                         return false;
                 }
             }
+            else
+                return true;
         }
 
         // vers le bas
         for (int i = depart.getLigne() + 1; i <= arrivee.getLigne(); i++) {
             if (jeu[i][depart.getColonne()].estOccupee()) {
-                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur()) && nbPiecesEntre == 1) {
-                    if (jeu[i][depart.getColonne()] == jeu[arrivee.getLigne()][arrivee.getColonne()])
+                if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
+                    if (nbPiecesEntre == 1)
+                        if (jeu[i][depart.getColonne()] == jeu[arrivee.getLigne()][arrivee.getColonne()])
                         return true;
                 }
                 else if (jeu[arrivee.getLigne()][arrivee.getColonne()].estOccupeeAdv((jeu[depart.getLigne()][depart.getColonne()].getPiece()).getCouleur())) {
@@ -489,6 +492,8 @@ public class Echiquier implements MethodesEchiquier {
                         return false;
                 }
             }
+            else
+                return true;
         }
 
         // vers left
@@ -504,6 +509,8 @@ public class Echiquier implements MethodesEchiquier {
                         return false;
                 }
             }
+            else
+                return true;
         }
 
         // vers right
@@ -519,6 +526,8 @@ public class Echiquier implements MethodesEchiquier {
                         return false;
                 }
             }
+            else
+                return true;
         }
 
         return false;

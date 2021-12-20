@@ -6,6 +6,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Objects;
 
 public class FrameXiangQi extends JFrame {
 
@@ -129,7 +130,7 @@ public class FrameXiangQi extends JFrame {
 		Piece pieceTampon, pieceEnlevee; //piece entrain de deplacer
 		ImageIcon iconeTampon; // equivalent de piece tampon mais pour aspect graphique
 		Position depart, arrivee;
-		String couleurControle; // valeur rouge ou noir ;
+		String couleurControle = "noir"; // valeur rouge ou noir ;
 
 		public void reset(){
 			echiquier = new Echiquier();
@@ -243,12 +244,13 @@ public class FrameXiangQi extends JFrame {
 				}
 
 				// 1er cas: clique sur une case occupee, tampon vide : cas Depart
-				if (echiquier.getIntersection(ligneClic, colonneClic).estOccupee() && pieceTampon == null) {
+				if (echiquier.getIntersection(ligneClic, colonneClic).estOccupee() && pieceTampon == null && Objects.equals(echiquier.getIntersection(ligneClic, colonneClic).getPiece().getCouleur(), couleurControle)) {
 					depart = new Position(ligneClic, colonneClic);
 					pieceTampon = echiquier.getIntersection(ligneClic, colonneClic).getPiece();
 					iconeTampon = (ImageIcon) grille[ligneClic][colonneClic].getIcon();
 					grille[ligneClic][colonneClic].setIcon(null);
-					couleurControle = pieceTampon.getCouleur(); // color
+
+					couleurControle = pieceTampon.getCouleur(); // donne le controle du depart
 				}
 
 				// 2éme cas: clique sur une case vide; tampon plein cas d'arrivee,
@@ -257,30 +259,41 @@ public class FrameXiangQi extends JFrame {
 					if (pieceTampon.estValide(depart, arrivee))
 						if (echiquier.cheminPossible(depart, arrivee))
 							if (!echiquier.roisNePouvantPasEtreFaceAFace(depart, arrivee)) {
+								echiquier.getIntersection(depart.getLigne(), depart.getColonne()).setPiece(null); 				//enleve la piece de depart
+								echiquier.getIntersection(ligneClic, colonneClic).setPiece(pieceTampon); pieceTampon = null; 	//met la piece tampon sur la case d'arrivée et vide le tampon
+								grille[ligneClic][colonneClic].setIcon(iconeTampon); iconeTampon = null; 						//place l'iconeTampon sur le JLabel d'arrivée et l'enleve du tampon
 
-								echiquier.getIntersection(depart.getLigne(), depart.getColonne()).setPiece(null);
-								echiquier.getIntersection(ligneClic, colonneClic).setPiece(pieceTampon); pieceTampon = null;
-								grille[ligneClic][colonneClic].setIcon(iconeTampon); iconeTampon = null;
+								//change le controle de couleur
+								if (couleurControle.equals("noir"))
+									couleurControle = "rouge";
+								else
+									couleurControle = "noir";
 
-								//color
-								labelCouleur.setText("C'est aux " + couleurControle + "s à jouer ");
-								repaint();
-								panelRouges.updateUI();
-								panelNoirs.updateUI();
+								//update l'interface
+								labelCouleur.setText("C'est aux " + couleurControle + "s à jouer"); repaint();
+								panelRouges.updateUI(); panelNoirs.updateUI();
 							}
 				}
 
-			    // 3éme cas: clique sur une case occupee et tampon plein: case d'arrivee/capture (peut-etre piece qui ne bouge pas)
+				// 3éme cas: clique sur une case occupee et tampon plein: case d'arrivee/capture (peut-etre piece qui ne bouge pas)
 				else if (echiquier.getIntersection(ligneClic, colonneClic).estOccupee() && pieceTampon != null) {
 					arrivee = new Position(ligneClic, colonneClic);
 					if (pieceTampon.estValide(depart, arrivee))
 						if (echiquier.cheminPossible(depart, arrivee))
-							if (!echiquier.roisNePouvantPasEtreFaceAFace(depart, arrivee)) {
+							if (!echiquier.roisNePouvantPasEtreFaceAFace(depart, arrivee)) { //ne marche pas
 								echiquier.getIntersection(depart.getLigne(), depart.getColonne()).setPiece(null);
-								echiquier.getIntersection(ligneClic, colonneClic).setPiece(pieceTampon);
-								pieceTampon = null;
-								grille[ligneClic][colonneClic].setIcon(iconeTampon);
-								iconeTampon = null;
+								echiquier.getIntersection(ligneClic, colonneClic).setPiece(pieceTampon); pieceTampon = null;
+								grille[ligneClic][colonneClic].setIcon(iconeTampon); iconeTampon = null;
+
+								//change le controle de couleur
+								if (couleurControle.equals("noir"))
+									couleurControle = "rouge";
+								else
+									couleurControle = "noir";
+
+								//update l'interface
+								labelCouleur.setText("C'est aux " + couleurControle + "s à jouer"); repaint();
+								panelRouges.updateUI(); panelNoirs.updateUI();
 							}
 				}
 			}
