@@ -459,8 +459,6 @@ public class Echiquier implements MethodesEchiquier {
     }
 
     public boolean bombardeMouvVal(Position depart, Position arrivee){
-        int diffLigne = arrivee.getLigne() - depart.getLigne();
-        int diffColonne = arrivee.getColonne() - depart.getColonne();
         int nbPiecesEntre = 0;
 
         //vers le haut
@@ -529,14 +527,22 @@ public class Echiquier implements MethodesEchiquier {
 
     @Override
     public boolean roisNePouvantPasEtreFaceAFace(Position depart, Position arrivee) {
-        int diffLigne = arrivee.getLigne() - depart.getLigne();
         int diffColonne = arrivee.getColonne() - depart.getColonne();
         int nbRoi = 0;
-        int j = 0;
 
-        if (diffColonne == 0){
-            for (int i = 0; i < 10; i++) {
+        if (diffColonne != 0){
+            for (int i = depart.getLigne() + 1; i < 9; i++) {
                 if (jeu[i][arrivee.getColonne()].estOccupee()) {
+                    if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Roi) {
+                        if (nbRoi == 1)
+                            return true;
+                        nbRoi++;
+                    }
+                }
+            }
+
+            for (int i = depart.getLigne() - 1; i > 0; i--) {
+                if (jeu[arrivee.getLigne()][i].estOccupee()) {
                     if (jeu[depart.getLigne()][depart.getColonne()].getPiece() instanceof Roi) {
                         if (nbRoi == 1)
                             return true;

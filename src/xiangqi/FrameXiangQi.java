@@ -248,45 +248,40 @@ public class FrameXiangQi extends JFrame {
 					pieceTampon = echiquier.getIntersection(ligneClic, colonneClic).getPiece();
 					iconeTampon = (ImageIcon) grille[ligneClic][colonneClic].getIcon();
 					grille[ligneClic][colonneClic].setIcon(null);
+					couleurControle = pieceTampon.getCouleur(); // color
 				}
 
 				// 2éme cas: clique sur une case vide; tampon plein cas d'arrivee,
 				else if (!(echiquier.getIntersection(ligneClic, colonneClic).estOccupee()) && pieceTampon != null) {
 					arrivee = new Position(ligneClic, colonneClic);
-//					echiquier.getIntersection(ligneClic, colonneClic).setPiece(arrivee);
-					if (pieceTampon.estValide(depart, arrivee)) {
-						if (echiquier.cheminPossible(depart, arrivee)) {
-//							if (echiquier.roisNePouvantPasEtreFaceAFace(depart, arrivee)) {
-//								depart = new Position(ligneClic, colonneClic);
-								echiquier.getIntersection(ligneClic, colonneClic).setPiece(null);
+					if (pieceTampon.estValide(depart, arrivee))
+						if (echiquier.cheminPossible(depart, arrivee))
+							if (!echiquier.roisNePouvantPasEtreFaceAFace(depart, arrivee)) {
 
-								depart = arrivee;
-								echiquier.getIntersection(ligneClic, colonneClic).setPiece(pieceTampon);
-								arrivee = null;
-								pieceTampon = null;
-								grille[ligneClic][colonneClic].setIcon(iconeTampon);
-								iconeTampon = null;
-//							}
-						}
-					}
+								echiquier.getIntersection(depart.getLigne(), depart.getColonne()).setPiece(null);
+								echiquier.getIntersection(ligneClic, colonneClic).setPiece(pieceTampon); pieceTampon = null;
+								grille[ligneClic][colonneClic].setIcon(iconeTampon); iconeTampon = null;
+
+								//color
+								labelCouleur.setText("C'est aux " + couleurControle + "s à jouer ");
+								repaint();
+								panelRouges.updateUI();
+								panelNoirs.updateUI();
+							}
 				}
 
 			    // 3éme cas: clique sur une case occupee et tampon plein: case d'arrivee/capture (peut-etre piece qui ne bouge pas)
 				else if (echiquier.getIntersection(ligneClic, colonneClic).estOccupee() && pieceTampon != null) {
 					arrivee = new Position(ligneClic, colonneClic);
-					if (pieceTampon.estValide(depart, arrivee)) {
-						if (echiquier.cheminPossible(depart, arrivee)) {
-//							if (echiquier.roisNePouvantPasEtreFaceAFace(depart, arrivee)) {
-								echiquier.getIntersection(ligneClic, colonneClic).setPiece(null);
-								depart = arrivee;
+					if (pieceTampon.estValide(depart, arrivee))
+						if (echiquier.cheminPossible(depart, arrivee))
+							if (!echiquier.roisNePouvantPasEtreFaceAFace(depart, arrivee)) {
+								echiquier.getIntersection(depart.getLigne(), depart.getColonne()).setPiece(null);
 								echiquier.getIntersection(ligneClic, colonneClic).setPiece(pieceTampon);
-								arrivee = null;
 								pieceTampon = null;
 								grille[ligneClic][colonneClic].setIcon(iconeTampon);
 								iconeTampon = null;
-//							}
-						}
-					}
+							}
 				}
 			}
 		}
